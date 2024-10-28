@@ -1,0 +1,108 @@
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch , useSelector } from "react-redux";
+import { addToWishlist, removeFromWishlist } from '../../redux/wishlistSlice';
+
+const CardProductList2 = (props) => {
+  const product = props.data;
+
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+
+  
+  const checkIfInWishlist = () => {
+    const exists = wishlistItems.some((item) => item._id === product._id);
+    setIsInWishlist(exists);
+  };
+
+  useEffect(() => {
+    checkIfInWishlist();
+  }, [wishlistItems, product]);
+  const handleAddToWishlist = () => {
+    if (!isInWishlist) {
+      dispatch(addToWishlist(product));
+      setIsInWishlist(true);
+    } else {
+      dispatch(removeFromWishlist(product._id));
+      setIsInWishlist(false);
+    }
+  };
+  return (
+    <div className="card">
+      <div className="row g-0">
+        <div className="col-md-3 text-center">
+          <img src={product.img} className="img-fluid" alt="..." />
+        </div>
+        <div className="col-md-9">
+          <div className="card-body">
+            <h6 className="card-subtitle me-2 d-inline">
+              <Link to={product.link} className="text-decoration-none">
+                {product.name}
+              </Link>
+            </h6>
+            {product.isNewPro && (
+              <span className="badge bg-success me-2">New</span>
+            )}
+            {product.isHot && <span className="badge bg-danger me-2">Hot</span>}
+            {product.star > 0 && (
+              <span className="badge bg-secondary">
+                <i className="bi bi-star-fill text-warning me-1" />
+                {product.star}
+              </span>
+            )}
+          </div>
+
+          <div className="card-footer">
+            <div className="mb-2">
+              <span className="fw-bold h5 me-2">${product.price}</span>
+              {product.originPrice > 0 && (
+                <del className="small text-muted me-2">
+                  ${product.originPrice}
+                </del>
+              )}
+              {(product.discountPercentage > 0 ||
+                product.discountPrice > 0) && (
+                <span className={`rounded p-1 bg-warning me-2 small`}>
+                  -
+                  {product.discountPercentage > 0
+                    ? product.discountPercentage + "%"
+                    : "$" + product.discountPrice}
+                </span>
+              )}
+              {product.isFreeShipping && (
+                <span className="text-success small mb-2">
+                  <i className="bi bi-truck" /> Free shipping
+                </span>
+              )}
+            </div>
+
+            <div className="btn-group  d-flex" role="group">
+              <button
+                type="button"
+                className="btn btn-sm btn-primary"
+                title="Add to cart"
+              >
+                <i className="bi bi-cart-plus" />
+              </button>
+              <button
+            type="button"
+            className="btn btn-sm btn-outline-secondary"
+            title="Add to wishlist"
+            onClick={() => handleAddToWishlist(product)}
+          >
+            <i
+              className={`bi bi-heart${
+                isInWishlist ? "-fill text-danger" : ""
+              }`}
+            />
+          </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CardProductList2;
