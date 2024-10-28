@@ -20,7 +20,7 @@ class UserListView extends Component {
   async componentDidMount() {
     try {
       const response = await axios.get(
-        "http://localhost:3001/users/getallusers"
+        `${process.env.REACT_APP_API_URL}/users/getallusers`
       );
       const users = response.data;
       const totalItems = users.length;
@@ -43,7 +43,7 @@ class UserListView extends Component {
   };
   handleDeleteUser = async (userId) => {
     try {
-      await axios.delete(`http://localhost:3001/users/delete/${userId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/users/delete/${userId}`);
       // Update the user list after deletion
       const updatedUsers = this.state.users.filter(
         (user) => user._id !== userId
@@ -60,7 +60,7 @@ class UserListView extends Component {
   handleUpdateUser = async (updatedUser) => {
     try {
       await axios.put(
-        `http://localhost:3001/users/update/${updatedUser.id}`,
+        `${process.env.REACT_APP_API_URL}/users/update/${updatedUser.id}`,
         updatedUser
       );
       // Update the user list after the update
@@ -80,7 +80,7 @@ class UserListView extends Component {
   };
   handleAddUser = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:3001/users/register', userData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register', userData`);
       const newUser = response.data.user; 
       //console.log(newUser)
       const updatedUsers = [...this.state.users, newUser]; 

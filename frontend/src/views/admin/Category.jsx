@@ -18,7 +18,7 @@ class CategoryListView extends Component {
 
   async componentDidMount() {
     try {
-      const response = await axios.get("http://localhost:3001/categories/getallcategories");
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/categories/getallcategories`);
       const categories = response.data;
       console.log(categories)
       const totalItems = categories.length;
@@ -36,7 +36,7 @@ class CategoryListView extends Component {
 
   handleDeleteCategory = async (categoryId) => {
     try {
-      await axios.delete(`http://localhost:3001/categories/delete/${categoryId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/categories/delete/${categoryId}`);
       const updatedCategories = this.state.categories.filter(category => category._id !== categoryId);
       this.setState(prevState => ({
         categories: updatedCategories,
@@ -50,7 +50,7 @@ class CategoryListView extends Component {
 
   handleUpdateCategory = async (updatedCategory) => {
     try {
-      await axios.put(`http://localhost:3001/categories/update/${updatedCategory._id}`, updatedCategory);
+      await axios.put(`${process.env.REACT_APP_API_URL}/categories/update/${updatedCategory._id}`, updatedCategory);
       const updatedCategories = this.state.categories.map(category =>
         category._id === updatedCategory._id ? updatedCategory : category
       );
@@ -69,7 +69,7 @@ class CategoryListView extends Component {
 
 handleAddCategory = async (categoryData) => {
   try {
-    const response = await axios.post('http://localhost:3001/categories/create', categoryData);
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/categories/create`, categoryData);
     const newCategory = response.data.category;
 
     console.log('Category added successfully:', newCategory);

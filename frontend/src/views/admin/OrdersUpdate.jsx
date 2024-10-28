@@ -11,7 +11,7 @@ const OrdersUpdate = () => {
   const fetchOrders = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/order/getorders`
+        `${process.env.REACT_APP_API_URL}/order/getorders`
       );
       setOrders(response.data.orders);
     } catch (error) {
@@ -21,7 +21,7 @@ const OrdersUpdate = () => {
 
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
-      await axios.put(`http://localhost:3001/order/update/${orderId}/status`, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/order/update/${orderId}/status`, {
         status: newStatus,
       });
       fetchOrders(); // Refetch orders after updating status
@@ -35,7 +35,7 @@ const OrdersUpdate = () => {
     const fetchProductDetails = async (productId) => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/produit/produits/${productId}`
+          `${process.env.REACT_APP_API_URL}/produit/produits/${productId}`
         );
         setProductsDetails((prev) => ({
           ...prev,

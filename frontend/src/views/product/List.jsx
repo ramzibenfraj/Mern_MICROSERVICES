@@ -27,7 +27,9 @@ class ProductListView extends Component {
 
   async componentDidMount() {
     try {
-      const response = await axios.get("http://localhost:3001/produit/getproduits");
+      const apiUrl = process.env.REACT_APP_API_URL;
+      console.log(apiUrl);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/produit/getproduits`);
       const products = response.data;
       //console.log("Type of products:", typeof products);
 

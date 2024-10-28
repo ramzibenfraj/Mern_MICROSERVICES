@@ -38,7 +38,7 @@ const ProductDetailView = (props) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/produit/produits/${productId}`
+          `${process.env.REACT_APP_API_URL}/produit/produits/${productId}`
         );
         const products = response.data;
         const firstKey = Object.keys(products)[0];

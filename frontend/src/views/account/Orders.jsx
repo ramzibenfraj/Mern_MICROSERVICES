@@ -12,7 +12,7 @@ const OrdersView = () => {
       try {
         const userId = window.localStorage.getItem("userid");
         const userId1 = '6574ad25600c02d5459d45cf'; // Replace with your user ID
-        const response = await axios.get(`http://localhost:3001/order/getallorders/${userId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/order/getallorders/${userId}`);
         setOrders(response.data.orders);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -25,7 +25,7 @@ const OrdersView = () => {
   useEffect(() => {
     const fetchProductDetails = async (productId) => {
       try {
-        const response = await axios.get(`http://localhost:3001/produit/produits/${productId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/produit/produits/${productId}`);
         setProductsDetails((prev) => ({ ...prev, [productId]: response.data.product }));
       } catch (error) {
         console.error('Error fetching product details:', error);

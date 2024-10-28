@@ -22,7 +22,7 @@ const ContactUsForm = ({ onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/mail/send-email", formData);
+      await axios.post(`${process.env.REACT_APP_API_URL}/mail/send-email", formData`);
 
       setFormData({
         name: "",

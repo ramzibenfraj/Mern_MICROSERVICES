@@ -34,7 +34,7 @@ const CheckoutView = () => {
       };
 
       // Envoyer la requête POST à votre API pour créer la commande
-      const response = await axios.post('http://localhost:3001/order/addorder', orderData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/order/addorder`, orderData);
       
       // Afficher la réponse de la création de commande
       console.log(response.data);

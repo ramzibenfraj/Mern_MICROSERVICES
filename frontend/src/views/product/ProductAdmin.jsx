@@ -24,7 +24,7 @@ class ProductListView extends Component {
   async componentDidMount() {
     try {
       const response = await axios.get(
-        "http://localhost:3001/produit/getproduits"
+        `${process.env.REACT_APP_API_URL}/produit/getproduits`
       );
       const products = response.data;
       //console.log("Type of products:", typeof products);
@@ -64,7 +64,7 @@ class ProductListView extends Component {
 
   handleDeleteProduct = async (productId) => {
     try {
-      await axios.delete(`http://localhost:3001/produit/delete/${productId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/produit/delete/${productId}`);
       // After successful deletion, update the product list in state
 
       const updatedProducts = this.state.currentProducts.filter(
@@ -87,7 +87,7 @@ class ProductListView extends Component {
 
       // Send updated product data to the server to perform an update
       await axios.put(
-        `http://localhost:3001/produit/update/${productId}`,
+        `${process.env.REACT_APP_API_URL}/produit/update/${productId}`,
         updatedProduct
       );
       const updatedProducts = this.state.currentProducts.map((product) =>
@@ -112,11 +112,11 @@ class ProductListView extends Component {
   handleAddProduct = async (newProduct) => {
     try {
       // Send the new product data to the server for creation
-      await axios.post("http://localhost:3001/produit/addproduit", newProduct);
+      await axios.post(`${process.env.REACT_APP_API_URL}/produit/addproduit`, newProduct);
 
       // Fetch updated product list after addition
       const response = await axios.get(
-        "http://localhost:3001/produit/getproduits"
+        `${process.env.REACT_APP_API_URL}/produit/getproduits`
       );
       const products = response.data;
       const firstKey = Object.keys(products)[0];

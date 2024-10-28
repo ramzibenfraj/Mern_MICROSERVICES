@@ -19,7 +19,7 @@ class AddProductModal extends Component {
 
   async componentDidMount() {
     try {
-      const response = await axios.get("http://localhost:3001/categories/getallcategories");
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/categories/getallcategories`);
       const categories = response.data;
       this.setState({ categories });
     } catch (error) {
