@@ -23,7 +23,6 @@ const UsersEdit = lazy(() => import("./views/admin/Users"));
 const ProductDetailView = lazy(() => import("./views/product/Detail"));
 const CartView = lazy(() => import("./views/cart/Cart"));
 const CheckoutView = lazy(() => import("./views/cart/Checkout"));
-const InvoiceView = lazy(() => import("./views/cart/Invoice"));
 const NotFoundView = lazy(() => import("./views/pages/404"));
 const InternalServerErrorView = lazy(() => import("./views/pages/500"));
 const ContactUsView = lazy(() => import("./views/pages/ContactUs"));
@@ -59,7 +58,6 @@ function App() {
             <Route exact path="/product/detail/:id" element={<ProductDetailView/>} />
             <Route exact path="/cart" element={<CartView/>} />
             <Route exact path="/checkout" element={<CheckoutView/>} />
-            <Route exact path="/invoice" element={<InvoiceView />} />
             <Route exact path="/contact-us" element={<ContactUsView/>} />
             <Route exact path="/500" element={<InternalServerErrorView/>} />
             <Route path="*" element={<NotFoundView/>} />
